@@ -4,6 +4,8 @@ Application::Application()
 {
 	is_running_ = false;
 	window_ = nullptr;
+	hwnd_ = nullptr;
+	pd_ = bgfx::PlatformData{};
 }
 
 Application::~Application()
@@ -47,6 +49,14 @@ bool Application::Create()
 		return false;
 	}
 
+	if (!InitBGFX())
+	{
+		SDL_Log("BGFX failed to initialize");
+		SDL_DestroyWindow(window_);
+		SDL_Quit();
+		return false;
+	}
+
 	return true;
 }
 
@@ -72,5 +82,38 @@ void Application::Run()
 				break;
 			}
 		}
+
+		bgfx::touch(0);
+
+		bgfx::dbgTextClear();
+		bgfx::dbgTextPrintf(1, 1, 0x0f, "Hello World");
+
+		bgfx::frame();
 	}
+}
+
+bool Application::InitBGFX()
+{
+	pd_.nwh = hwnd_;
+
+	bgfx::setPlatformData(pd_);
+
+	bgfx::Init init;
+	init.type = bgfx::RendererType::OpenGL;
+	init.resolution.width = 800;
+	init.resolution.height = 600;
+	init.resolution.reset = BGFX_RESET_VSYNC;
+	init.platformData = pd_;
+
+	if (!bgfx::init(init)) {
+		return false;
+	}
+
+	// Enable BGFX debug text
+	bgfx::setDebug(BGFX_DEBUG_TEXT);
+
+	bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff);
+	bgfx::setViewRect(0, 0, 0, 800, 600);
+
+	return true;
 }
