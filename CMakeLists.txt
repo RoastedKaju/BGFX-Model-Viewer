@@ -13,3 +13,6 @@ add_executable(${PROJECT_NAME} ${SOURCE_FOLDER})
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+
+find_package(bgfx CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE bgfx::bx bgfx::bgfx bgfx::bimg bgfx::bimg_decode)
