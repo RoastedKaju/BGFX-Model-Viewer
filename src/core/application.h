@@ -8,6 +8,8 @@
 #include <bx/platform.h>
 #include <Windows.h>
 
+#include "resource_manager.h"
+
 class Application
 {
 public:

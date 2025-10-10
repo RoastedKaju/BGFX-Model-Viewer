@@ -11,6 +11,8 @@ file(GLOB_RECURSE SOURCE_FOLDER "src/*.h" "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FOLDER})
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
