@@ -38,7 +38,15 @@ const bgfx::ShaderHandle Shader::CreateShader(const char* path)
 
 	mem->data[size] = '\0';
 
-	return bgfx::createShader(mem);
+	bgfx::ShaderHandle out_handle = bgfx::createShader(mem);
+
+	if (!bgfx::isValid(out_handle))
+	{
+		SDL_Log("Failed to create shader %s\n", path);
+		return BGFX_INVALID_HANDLE;
+	}
+
+	return out_handle;
 }
 
 Shader::Shader()

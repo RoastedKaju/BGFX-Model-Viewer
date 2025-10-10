@@ -49,6 +49,7 @@ bool Application::Create()
 		return false;
 	}
 
+	// BGFX
 	if (!InitBGFX())
 	{
 		SDL_Log("BGFX failed to initialize");
@@ -56,6 +57,10 @@ bool Application::Create()
 		SDL_Quit();
 		return false;
 	}
+
+	// Resouce manager
+	resource_manager_.LoadShaders();
+	resource_manager_.PrintLoadedShaders();
 
 	return true;
 }
@@ -90,7 +95,9 @@ void Application::Run()
 		bgfx::touch(0);
 
 		bgfx::dbgTextClear();
-		bgfx::dbgTextPrintf(1, 1, 0x0f, "Hello World");
+		bgfx::dbgTextPrintf(1, 1, 0x0f, "BGFX");
+
+		resource_manager_.DrawDebugTriangle();
 
 		bgfx::frame();
 	}

@@ -6,18 +6,27 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "graphics/shader.h"
+#include "graphics/mesh.h"
+#include "utils/layout.h"
 
 class ResourceManager
 {
 public:
-	ResourceManager() = default;
+	ResourceManager();
 
 	void LoadShaders();
+	const std::unordered_map<std::string, std::shared_ptr<Shader>>& GetShaders() const;
+	inline const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return meshes_; }
+
+	void PrintLoadedShaders();
+	void DrawDebugTriangle();
 	
 private:
 	std::unordered_map<std::string, std::shared_ptr<Shader>> shaders_map_;
+	std::vector<std::shared_ptr<Mesh>> meshes_;
 };
 
 #endif // !RESOURCE_MANAGER_H_

@@ -24,9 +24,13 @@ private:
 	void ResetView(const SDL_WindowEvent& window_event);
 
 	bool is_running_;
+
 	SDL_Window* window_;
 	HWND hwnd_;
+
 	bgfx::PlatformData pd_;
+
+	ResourceManager resource_manager_;
 };
 
 #endif // !APPLICATION_H_
