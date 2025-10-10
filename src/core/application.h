@@ -19,6 +19,7 @@ public:
 
 private:
 	bool InitBGFX();
+	void ResetView(const SDL_WindowEvent& window_event);
 
 	bool is_running_;
 	SDL_Window* window_;

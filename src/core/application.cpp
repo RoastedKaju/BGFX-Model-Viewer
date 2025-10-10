@@ -78,6 +78,10 @@ void Application::Run()
 			case SDL_EVENT_QUIT:
 				break;
 
+			case SDL_EVENT_WINDOW_RESIZED:
+				ResetView(event.window);
+				break;
+
 			default:
 				break;
 			}
@@ -116,4 +120,12 @@ bool Application::InitBGFX()
 	bgfx::setViewRect(0, 0, 0, 800, 600);
 
 	return true;
+}
+
+void Application::ResetView(const SDL_WindowEvent& window_event)
+{
+	const int new_width = window_event.data1;
+	const int new_height = window_event.data2;
+	bgfx::reset(new_width, new_height, BGFX_RESET_VSYNC);
+	bgfx::setViewRect(0, 0, 0, new_width, new_height);
 }
