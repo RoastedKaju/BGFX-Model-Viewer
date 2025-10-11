@@ -55,6 +55,14 @@ const bgfx::TextureHandle Texture::CreateTexture(const char* path)
 	return handle;
 }
 
+const bgfx::TextureHandle Texture::TextureFromFile(const char* path, const std::string& directory, bool gamma)
+{
+	std::string filename = std::string(path);
+	filename = directory + '/' + filename;
+
+	return CreateTexture(filename.c_str());
+}
+
 Texture::Texture()
 	: handle_(BGFX_INVALID_HANDLE),
 	type_(),

@@ -1,0 +1,389 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 634,
+      "max": [
+        2.8763418197631836,
+        8.084784507751465,
+        0.26848870515823364
+      ],
+      "min": [
+        -2.8763418197631836,
+        4.441559791564941,
+        -0.26625120639801025
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 7608,
+      "componentType": 5126,
+      "count": 634,
+      "max": [
+        0.9999786019325256,
+        0.9999862313270569,
+        0.9999388456344604
+      ],
+      "min": [
+        -0.9999855756759644,
+        -0.999992311000824,
+        -0.9999534487724304
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 634,
+      "max": [
+        0.9999974966049194,
+        0.9999430179595947,
+        0.9999998807907104,
+        1.0
+      ],
+      "min": [
+        -0.9999626278877258,
+        -0.999996542930603,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 634,
+      "max": [
+        0.9810227155685425,
+        0.9870007038116455
+      ],
+      "min": [
+        0.010743975639343262,
+        0.019347071647644043
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 2334,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 15216,
+      "componentType": 5126,
+      "count": 1314,
+      "max": [
+        3.5709145069122314,
+        6.10500431060791,
+        3.5709939002990723
+      ],
+      "min": [
+        -5.857809543609619,
+        -0.02550208941102028,
+        -3.5700323581695557
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 30984,
+      "componentType": 5126,
+      "count": 1314,
+      "max": [
+        1.0,
+        1.0,
+        0.9999642372131348
+      ],
+      "min": [
+        -0.9999392628669739,
+        -1.0,
+        -0.9999803304672241
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 10144,
+      "componentType": 5126,
+      "count": 1314,
+      "max": [
+        0.9999958872795105,
+        0.9983363747596741,
+        0.9999872446060181,
+        1.0
+      ],
+      "min": [
+        -0.9810488224029541,
+        -0.9998806715011597,
+        -0.9999881982803345,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 5072,
+      "componentType": 5126,
+      "count": 1314,
+      "max": [
+        0.9920717477798462,
+        0.9884785413742065
+      ],
+      "min": [
+        0.013650387525558472,
+        0.006147950887680054
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 9336,
+      "componentType": 5125,
+      "count": 6642,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Alex Sashkov (https://sketchfab.com/Sv_AleX)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/teapot-a506a27a4c134ed59c34b096b277c0ba",
+      "title": "Teapot"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 35904,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 15584,
+      "byteOffset": 35904,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 46752,
+      "byteOffset": 51488,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 31168,
+      "byteOffset": 98240,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 129408,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/handle_mat_baseColor.png"
+    },
+    {
+      "uri": "textures/handle_mat_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/handle_mat_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "handle_mat",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "teapot_mat",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "handle_handle_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "teapot_teapot_mat_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.03149585462967952,
+        8.280832903644552e-18,
+        -0.037293555979170945,
+        0.0,
+        -0.037293555979170945,
+        1.484336038187849e-17,
+        -0.03149585462967952,
+        0.0,
+        5.9972611134177065e-18,
+        0.04881391301751137,
+        1.5903785732283117e-17,
+        0.0,
+        -0.4060300290584564,
+        1.9393694153603042e-16,
+        -0.8734143376350403,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Teapot.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "handle"
+    },
+    {
+      "mesh": 0,
+      "name": "handle_handle_mat_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "teapot"
+    },
+    {
+      "mesh": 1,
+      "name": "teapot_teapot_mat_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
+}

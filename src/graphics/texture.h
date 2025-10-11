@@ -13,6 +13,7 @@ class Texture
 {
 public:
 	static const bgfx::TextureHandle CreateTexture(const char* path);
+	static const bgfx::TextureHandle TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
 
 	Texture();
 	Texture(const std::string& path, const std::string& type = "");

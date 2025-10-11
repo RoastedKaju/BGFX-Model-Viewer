@@ -12,6 +12,7 @@
 #include "graphics/mesh.h"
 #include "graphics/texture.h"
 #include "graphics/material.h"
+#include "graphics/model.h"
 #include "utils/layout.h"
 
 class ResourceManager
@@ -31,6 +32,7 @@ private:
 	std::vector<std::shared_ptr<Mesh>> meshes_;
 	std::vector<std::shared_ptr<Texture>> textures_;
 	std::vector<std::shared_ptr<Material>> materials_;
+	std::vector<std::shared_ptr<Model>> models_;
 };
 
 #endif // !RESOURCE_MANAGER_H_

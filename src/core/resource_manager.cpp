@@ -58,6 +58,9 @@ void ResourceManager::PrintLoadedShaders()
 	const Shader& shader = *shaders_map_.begin()->second;
 	materials_.push_back(std::make_shared<Material>(shader.GetHandle()));
 	materials_.begin()->get()->SetDiffuseMap(*textures_.begin());
+
+	// Import teapot model
+	models_.push_back(std::make_shared<Model>("../../../resources/models/teapot/scene.gltf"));
 }
 
 void ResourceManager::DrawDebugTriangle()
