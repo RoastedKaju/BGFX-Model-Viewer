@@ -18,3 +18,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
 find_package(bgfx CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE bgfx::bx bgfx::bgfx bgfx::bimg bgfx::bimg_decode)
+
+find_package(assimp CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
