@@ -25,11 +25,4 @@ struct VertexData
 
 inline bgfx::VertexLayout VertexData::layout;
 
-struct TextureData
-{
-	bgfx::TextureHandle handle;
-	std::string type;
-	std::string path;
-};
-
 #endif // !LAYOUT_H_

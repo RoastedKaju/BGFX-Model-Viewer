@@ -42,18 +42,31 @@ void ResourceManager::PrintLoadedShaders()
 	}
 
 	std::vector<VertexData> vertices = {
-		{  0.0f,  0.5f, 0.0f, 0xffffffff, 0.0f, 0.0f }, // Top
-		{ -0.5f, -0.5f, 0.0f, 0xffffffff, 0.0f, 0.0f }, // Left
-		{  0.5f, -0.5f, 0.0f, 0xffffffff, 0.0f, 0.0f }  // Right
+		{  0.0f,  0.5f, 0.0f, 0xffffffff, 0.5f, 0.0f }, // Top (center of texture top edge)
+		{ -0.5f, -0.5f, 0.0f, 0xffffffff, 0.0f, 1.0f }, // Bottom Left (bottom-left of texture)
+		{  0.5f, -0.5f, 0.0f, 0xffffffff, 1.0f, 1.0f }  // Bottom Right (bottom-right of texture)
 	};
 
 	std::vector<uint16_t> indices = { 0, 1, 2 };
 
 	meshes_.push_back(std::make_shared<Mesh>(vertices, indices));
+
+	// Load and push back texture
+	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/metal_2k.jpg"));
+
+	// Make material and assign texture and shader
+	const Shader& shader = *shaders_map_.begin()->second;
+	materials_.push_back(std::make_shared<Material>(shader.GetHandle()));
+	materials_.begin()->get()->SetDiffuseMap(*textures_.begin());
 }
 
 void ResourceManager::DrawDebugTriangle()
 {
 	const Shader& shader = *shaders_map_.begin()->second;
+
+	// Bind material
+	materials_.begin()->get()->Bind();
+
+	// Draw mesh
 	meshes_.begin()->get()->Draw(shader.GetHandle());
 }
