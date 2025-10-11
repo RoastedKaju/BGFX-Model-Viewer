@@ -49,7 +49,16 @@ const bgfx::ShaderHandle Shader::CreateShader(const char* path)
 	return out_handle;
 }
 
-Shader::Shader()
+Shader::Shader(const char* name) : name_(name)
 {
 	handle_ = BGFX_INVALID_HANDLE;
+}
+
+Shader::~Shader()
+{
+	if (bgfx::isValid(handle_))
+	{
+		SDL_Log("Destroying Shader: %s\n", name_.c_str());
+		bgfx::destroy(handle_);
+	}
 }

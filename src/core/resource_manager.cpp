@@ -9,8 +9,8 @@ void ResourceManager::LoadShaders()
 {
 	// TODO: read the shaders folder, sub-folders and load shaders
 
-	std::shared_ptr<Shader> shader_ptr = std::make_shared<Shader>();
 	const std::string& name = "basic";
+	std::shared_ptr<Shader> shader_ptr = std::make_shared<Shader>(name.c_str());
 
 	if (shaders_map_.find(name) == shaders_map_.cend())
 	{
