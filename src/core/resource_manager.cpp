@@ -68,8 +68,11 @@ void ResourceManager::DrawDebugTriangle()
 	const Shader& shader = *shaders_map_.begin()->second;
 
 	// Bind material
-	materials_.begin()->get()->Bind();
+	//materials_.begin()->get()->Bind();
+	models_.at(0)->GetMaterials().at(0)->SetProgramHandle(shader.GetHandle());
+	models_.at(0)->GetMaterials().at(0)->Bind();
 
 	// Draw mesh
-	meshes_.begin()->get()->Draw(shader.GetHandle());
+	//meshes_.begin()->get()->Draw(shader.GetHandle());
+	models_.at(0)->Draw(shader.GetHandle());
 }

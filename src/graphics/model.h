@@ -20,7 +20,11 @@ public:
 	Model(const std::string& path, bool gamma_correction = false);
 	~Model();
 
-	void Draw();
+	void Draw(const bgfx::ProgramHandle& program, uint8_t view_id = 0) const;
+
+	inline const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return meshes_; }
+	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
+	inline const std::vector<std::shared_ptr<Material>>& GetMaterials() const { return materials_; }
 
 private:
 	void LoadModel(const std::string& path);

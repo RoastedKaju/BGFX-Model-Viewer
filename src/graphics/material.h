@@ -10,16 +10,20 @@
 class Material
 {
 public:
-	Material(const bgfx::ProgramHandle& program);
+	Material();
+	Material(bgfx::ProgramHandle program);
 	~Material();
 
 	void Bind() const;
 
 	inline void SetDiffuseMap(const std::shared_ptr<Texture>& diffuse_map) { diffuse_map_ = diffuse_map; }
 
+	inline void SetProgramHandle(bgfx::ProgramHandle program) { program_handle_ = program; }
+	inline bgfx::ProgramHandle GetProgramHandle() const { return program_handle_; }
+
 private:
 	bgfx::UniformHandle diffuse_sampler_;
-	const bgfx::ProgramHandle& program_handle_;
+	bgfx::ProgramHandle program_handle_;
 
 	std::shared_ptr<Texture> diffuse_map_;
 };

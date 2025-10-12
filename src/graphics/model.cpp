@@ -17,9 +17,12 @@ Model::~Model()
 
 }
 
-void Model::Draw()
+void Model::Draw(const bgfx::ProgramHandle& program, uint8_t view_id) const
 {
-
+	for (const auto& mesh : meshes_)
+	{
+		mesh->Draw(program, view_id);
+	}
 }
 
 void Model::LoadModel(const std::string& path)
@@ -132,6 +135,11 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	//// 4. height maps
 	//std::vector<Texture> heightMaps = LoadMaterialTextures(material, aiTextureType_DISPLACEMENT, "texture_height");
 	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+
+	// Create material and assign it to model
+	std::shared_ptr<Material> material_obj = std::make_shared<Material>();
+	material_obj->SetDiffuseMap(diffuseMaps.at(0));
+	materials_.push_back(material_obj);
 
 	// return a mesh object created from the extracted mesh data
 	return std::make_shared<Mesh>(vertices, indices);

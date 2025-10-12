@@ -14,11 +14,15 @@ Mesh::Mesh(const std::vector<VertexData>& vertices, const std::vector<uint16_t>&
 
 Mesh::~Mesh()
 {
-	if (!bgfx::isValid(vbh_))
+	if (bgfx::isValid(vbh_))
+	{
 		bgfx::destroy(vbh_);
+	}
 
-	if (!bgfx::isValid(ibh_))
+	if (bgfx::isValid(ibh_))
+	{
 		bgfx::destroy(ibh_);
+	}
 }
 
 void Mesh::Draw(const bgfx::ProgramHandle& program, uint8_t view_id) const
@@ -27,6 +31,6 @@ void Mesh::Draw(const bgfx::ProgramHandle& program, uint8_t view_id) const
 	bgfx::setIndexBuffer(ibh_);
 
 	bgfx::setState(BGFX_STATE_DEFAULT);
-	
+
 	bgfx::submit(view_id, program);
 }
