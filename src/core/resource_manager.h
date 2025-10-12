@@ -14,6 +14,7 @@
 #include "graphics/material.h"
 #include "graphics/model.h"
 #include "utils/layout.h"
+#include "utils/camera.h"
 
 class ResourceManager
 {
@@ -33,6 +34,7 @@ private:
 	std::vector<std::shared_ptr<Texture>> textures_;
 	std::vector<std::shared_ptr<Material>> materials_;
 	std::vector<std::shared_ptr<Model>> models_;
+	std::shared_ptr<Camera> camera_;
 };
 
 #endif // !RESOURCE_MANAGER_H_

@@ -61,11 +61,28 @@ void ResourceManager::PrintLoadedShaders()
 
 	// Import teapot model
 	models_.push_back(std::make_shared<Model>("../../../resources/models/teapot/scene.gltf"));
+
+	// Create camera
+	camera_ = std::make_shared<Camera>();
+
 }
 
 void ResourceManager::DrawDebugTriangle()
 {
 	const Shader& shader = *shaders_map_.begin()->second;
+
+	// --- Camera setup ---
+	bgfx::setViewTransform(0, camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+
+	// --- Model transform ---
+	float modelMtx[16];
+	bx::mtxIdentity(modelMtx);
+
+	// Move teapot forward (camera looks along +Z)
+	bx::mtxTranslate(modelMtx, 0.0f, -1.0f, 8.0f);
+
+	// Set transform for bgfx
+	bgfx::setTransform(modelMtx);
 
 	// Bind material
 	//materials_.begin()->get()->Bind();
