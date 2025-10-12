@@ -1,5 +1,7 @@
 #include "mesh.h"
 
+#include "utils/render_states.h"
+
 Mesh::Mesh(const std::vector<VertexData>& vertices, const std::vector<uint16_t>& indices)
 {
 	vbh_ = BGFX_INVALID_HANDLE;
@@ -30,7 +32,7 @@ void Mesh::Draw(const bgfx::ProgramHandle& program, uint8_t view_id) const
 	bgfx::setVertexBuffer(0, vbh_);
 	bgfx::setIndexBuffer(ibh_);
 
-	bgfx::setState(BGFX_STATE_DEFAULT);
+	bgfx::setState(kDefaultRenderState);
 
 	bgfx::submit(view_id, program);
 }
