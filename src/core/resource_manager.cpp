@@ -52,6 +52,8 @@ void ResourceManager::PrintLoadedShaders()
 	meshes_.push_back(std::make_shared<Mesh>(vertices, indices));
 
 	// Load and push back texture
+	// Texture '0' is always going to be the default missing
+	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/missing_1k.png"));
 	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/metal_2k.jpg"));
 
 	// Make material and assign texture and shader

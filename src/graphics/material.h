@@ -16,7 +16,7 @@ public:
 
 	void Bind() const;
 
-	inline void SetDiffuseMap(const std::shared_ptr<Texture>& diffuse_map) { diffuse_map_ = diffuse_map; }
+	void SetDiffuseMap(const std::shared_ptr<Texture>& diffuse_map);
 
 	inline void SetProgramHandle(bgfx::ProgramHandle program) { program_handle_ = program; }
 	inline bgfx::ProgramHandle GetProgramHandle() const { return program_handle_; }

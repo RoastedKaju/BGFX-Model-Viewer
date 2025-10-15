@@ -24,6 +24,7 @@ public:
 	void LoadShaders();
 	const std::unordered_map<std::string, std::shared_ptr<Shader>>& GetShaders() const;
 	inline const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return meshes_; }
+	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
 
 	void PrintLoadedShaders();
 	void DrawDebugTriangle();

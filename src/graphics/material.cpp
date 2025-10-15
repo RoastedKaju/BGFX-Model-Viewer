@@ -1,8 +1,10 @@
 #include "material.h"
 
+#include "core/engine.h"
+
 Material::Material()
 {
-	diffuse_sampler_ = bgfx::createUniform("texture_diffuse0", bgfx::UniformType::Sampler);
+	diffuse_sampler_ = bgfx::createUniform("texture_diffuse", bgfx::UniformType::Sampler);
 	program_handle_ = BGFX_INVALID_HANDLE;
 	diffuse_map_ = nullptr;
 }
@@ -10,7 +12,7 @@ Material::Material()
 Material::Material(bgfx::ProgramHandle program)
 	: program_handle_(program)
 {
-	diffuse_sampler_ = bgfx::createUniform("texture_diffuse0", bgfx::UniformType::Sampler);
+	diffuse_sampler_ = bgfx::createUniform("texture_diffuse", bgfx::UniformType::Sampler);
 	diffuse_map_ = nullptr;
 }
 
@@ -32,4 +34,15 @@ void Material::Bind() const
 	}
 
 	bgfx::setTexture(0, diffuse_sampler_, diffuse_map_->GetHandle());
+}
+
+void Material::SetDiffuseMap(const std::shared_ptr<Texture>& diffuse_map)
+{
+	if (diffuse_map)
+	{
+		diffuse_map_ = diffuse_map;
+		return;
+	}
+
+	diffuse_map_ = Engine::GetResourceManager().GetTextures().at(0);
 }

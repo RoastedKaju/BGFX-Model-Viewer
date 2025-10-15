@@ -1,7 +1,9 @@
 #include "model.h"
 
-#include "bx/math.h"
+#include <bx/math.h>
+
 #include "utils/layout.h"
+#include "core/engine.h"
 
 Model::Model(const std::string& path, bool gamma_correction)
 	:meshes_{},
@@ -139,6 +141,7 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	// Create material and assign it to model
 	std::shared_ptr<Material> material_obj = std::make_shared<Material>();
 	material_obj->SetDiffuseMap(diffuseMaps.at(0));
+
 	materials_.push_back(material_obj);
 
 	// return a mesh object created from the extracted mesh data

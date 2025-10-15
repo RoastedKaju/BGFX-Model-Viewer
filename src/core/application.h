@@ -10,6 +10,8 @@
 
 #include "resource_manager.h"
 
+class Engine;
+
 class Application
 {
 public:
@@ -31,6 +33,8 @@ private:
 	bgfx::PlatformData pd_;
 
 	ResourceManager resource_manager_;
+
+	friend class Engine;
 };
 
 #endif // !APPLICATION_H_
