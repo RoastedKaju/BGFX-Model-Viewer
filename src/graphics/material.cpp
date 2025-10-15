@@ -4,16 +4,31 @@
 
 Material::Material()
 {
-	diffuse_sampler_ = bgfx::createUniform("texture_diffuse", bgfx::UniformType::Sampler);
 	program_handle_ = BGFX_INVALID_HANDLE;
+
+	diffuse_sampler_ = bgfx::createUniform("texture_diffuse", bgfx::UniformType::Sampler);
+	specular_sampler_ = bgfx::createUniform("texture_specular", bgfx::UniformType::Sampler);
+	normal_sampler_ = bgfx::createUniform("texture_normal", bgfx::UniformType::Sampler);
+	height_sampler_ = bgfx::createUniform("texture_height", bgfx::UniformType::Sampler);
+
 	diffuse_map_ = nullptr;
+	specular_map_ = nullptr;
+	normal_map_ = nullptr;
+	height_map_ = nullptr;
 }
 
 Material::Material(bgfx::ProgramHandle program)
 	: program_handle_(program)
 {
 	diffuse_sampler_ = bgfx::createUniform("texture_diffuse", bgfx::UniformType::Sampler);
+	specular_sampler_ = bgfx::createUniform("texture_specular", bgfx::UniformType::Sampler);
+	normal_sampler_ = bgfx::createUniform("texture_normal", bgfx::UniformType::Sampler);
+	height_sampler_ = bgfx::createUniform("texture_height", bgfx::UniformType::Sampler);
+
 	diffuse_map_ = nullptr;
+	specular_map_ = nullptr;
+	normal_map_ = nullptr;
+	height_map_ = nullptr;
 }
 
 Material::~Material()
@@ -27,22 +42,30 @@ Material::~Material()
 
 void Material::Bind() const
 {
-	if (!diffuse_map_ || !bgfx::isValid(diffuse_map_->GetHandle()))
-	{
-		SDL_Log("Diffuse map invalid.\n");
-		return;
-	}
+	auto& rm = Engine::GetResourceManager();
 
-	bgfx::setTexture(0, diffuse_sampler_, diffuse_map_->GetHandle());
+	bgfx::setTexture(0, diffuse_sampler_, diffuse_map_ ? diffuse_map_->GetHandle() : rm.GetTextures().at(0)->GetHandle());
+	bgfx::setTexture(1, specular_sampler_, specular_map_ ? specular_map_->GetHandle() : rm.GetTextures().at(1)->GetHandle());
+	bgfx::setTexture(2, normal_sampler_, normal_map_ ? normal_map_->GetHandle() : rm.GetTextures().at(2)->GetHandle());
+	bgfx::setTexture(3, height_sampler_, height_map_ ? height_map_->GetHandle() : rm.GetTextures().at(3)->GetHandle());
 }
 
 void Material::SetDiffuseMap(const std::shared_ptr<Texture>& diffuse_map)
 {
-	if (diffuse_map)
-	{
-		diffuse_map_ = diffuse_map;
-		return;
-	}
+	diffuse_map_ = diffuse_map;
+}
 
-	diffuse_map_ = Engine::GetResourceManager().GetTextures().at(0);
+void Material::SetSpecularMap(const std::shared_ptr<Texture>& specular_map)
+{
+	specular_map_ = specular_map;
+}
+
+void Material::SetNormalMap(const std::shared_ptr<Texture>& normal_map)
+{
+	normal_map_ = normal_map;
+}
+
+void Material::SetHeightMap(const std::shared_ptr<Texture>& height_map)
+{
+	height_map_ = height_map;
 }

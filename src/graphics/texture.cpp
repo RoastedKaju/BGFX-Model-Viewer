@@ -84,6 +84,7 @@ Texture::~Texture()
 	{
 		const std::string filename = path_.substr(path_.find_last_of("/") + 1);
 		SDL_Log("Destroying texture: %s\n", filename.c_str());
+
 		bgfx::destroy(handle_);
 	}
 }

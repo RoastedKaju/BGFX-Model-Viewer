@@ -126,23 +126,20 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
 	// 1. diffuse maps
-	std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	TextureList diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-	//// 2. specular maps
-	//std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-	//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	//// 3. normal maps
-	//std::vector<Texture> normalMaps = LoadMaterialTextures(material, aiTextureType_NORMALS, "texture_normal");
-	//textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-	//// 4. height maps
-	//std::vector<Texture> heightMaps = LoadMaterialTextures(material, aiTextureType_DISPLACEMENT, "texture_height");
-	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+	// 2. specular maps
+	TextureList specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+	// 3. normal maps
+	TextureList normalMaps = LoadMaterialTextures(material, aiTextureType_NORMALS, "texture_normal");
+	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	// 4. height maps
+	TextureList heightMaps = LoadMaterialTextures(material, aiTextureType_DISPLACEMENT, "texture_height");
+	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-	// Create material and assign it to model
-	std::shared_ptr<Material> material_obj = std::make_shared<Material>();
-	material_obj->SetDiffuseMap(diffuseMaps.at(0));
-
-	materials_.push_back(material_obj);
+	// Create material
+	CreateMaterials(diffuseMaps, specularMaps, normalMaps, heightMaps);
 
 	// return a mesh object created from the extracted mesh data
 	return std::make_shared<Mesh>(vertices, indices);
@@ -177,4 +174,29 @@ std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* ma
 		}
 	}
 	return textures;
+}
+
+void Model::CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list)
+{
+	// Create material and assign it to model
+	std::shared_ptr<Material> material_obj = std::make_shared<Material>();
+
+	if (!diffuse_list.empty())
+	{
+		material_obj->SetDiffuseMap(diffuse_list.at(0));
+	}
+	if (!specular_list.empty())
+	{
+		material_obj->SetSpecularMap(specular_list.at(0));
+	}
+	if (!normal_list.empty())
+	{
+		material_obj->SetNormalMap(normal_list.at(0));
+	}
+	if (!height_list.empty())
+	{
+		material_obj->SetHeightMap(height_list.at(0));
+	}
+
+	materials_.push_back(material_obj);
 }

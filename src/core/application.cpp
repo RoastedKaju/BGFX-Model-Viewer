@@ -60,6 +60,7 @@ bool Application::Create()
 
 	// Resouce manager
 	resource_manager_.LoadShaders();
+	resource_manager_.CreateFallbackTextures();
 	resource_manager_.PrintLoadedShaders();
 
 	return true;

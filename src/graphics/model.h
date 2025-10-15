@@ -16,6 +16,8 @@
 
 class Model
 {
+	using TextureList = std::vector<std::shared_ptr<Texture>>;
+
 public:
 	Model(const std::string& path, bool gamma_correction = false);
 	~Model();
@@ -30,7 +32,8 @@ private:
 	void LoadModel(const std::string& path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	std::shared_ptr<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName);
+	TextureList LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName);
+	void CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list);
 
 	std::vector<std::shared_ptr<Mesh>> meshes_;
 	std::vector<std::shared_ptr<Texture>> textures_;
