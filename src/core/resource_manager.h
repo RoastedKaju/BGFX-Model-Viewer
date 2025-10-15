@@ -27,6 +27,8 @@ public:
 	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
 
 	void PrintLoadedShaders();
+	void CreateFallbackTextures();
+
 	void DrawDebugTriangle();
 	
 private:

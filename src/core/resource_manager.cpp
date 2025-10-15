@@ -52,8 +52,6 @@ void ResourceManager::PrintLoadedShaders()
 	meshes_.push_back(std::make_shared<Mesh>(vertices, indices));
 
 	// Load and push back texture
-	// Texture '0' is always going to be the default missing
-	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/missing_1k.png"));
 	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/metal_2k.jpg"));
 
 	// Make material and assign texture and shader
@@ -67,6 +65,47 @@ void ResourceManager::PrintLoadedShaders()
 	// Create camera
 	camera_ = std::make_shared<Camera>();
 
+}
+
+void ResourceManager::CreateFallbackTextures()
+{
+	const uint8_t flat_normal[2 * 2 * 4] = {
+		128, 128, 255, 255, 128, 128, 255, 255,
+		128, 128, 255, 255, 128, 128, 255, 255
+	};
+
+	const uint8_t grey_specular[2 * 2 * 4] = {
+		128, 128, 128, 255, 128, 128, 128, 255,
+		128, 128, 128, 255, 128, 128, 128, 255
+	};
+
+	static const uint8_t flat_height[2 * 2 * 4] = {
+		128, 128, 128, 255, 128, 128, 128, 255,
+		128, 128, 128, 255, 128, 128, 128, 255
+	};
+
+	const bgfx::Memory* mem_normal = bgfx::copy(flat_normal, sizeof(uint8_t) * 2 * 2 * 4);
+	const bgfx::TextureHandle normal_handle = bgfx::createTexture2D(2, 2, false, 1, bgfx::TextureFormat::RGBA8, 0, mem_normal);
+
+	const bgfx::Memory* mem_spec = bgfx::copy(grey_specular, sizeof(uint8_t) * 2 * 2 * 4);
+	const bgfx::TextureHandle spec_handle = bgfx::createTexture2D(2, 2, false, 1, bgfx::TextureFormat::RGBA8, 0, mem_spec);
+
+	const bgfx::Memory* mem_height = bgfx::copy(flat_height, sizeof(uint8_t) * 2 * 2 * 4);
+	const bgfx::TextureHandle height_handle = bgfx::createTexture2D(2, 2, false, 1, bgfx::TextureFormat::RGBA8, 0, mem_height);
+
+	auto normal = std::make_shared<Texture>();
+	normal->SetHandle(normal_handle);
+
+	auto spec = std::make_shared<Texture>();
+	spec->SetHandle(spec_handle);
+
+	auto height = std::make_shared<Texture>();
+	height->SetHandle(height_handle);
+
+	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/missing_1k.png"));
+	textures_.push_back(spec);
+	textures_.push_back(normal);
+	textures_.push_back(height);
 }
 
 void ResourceManager::DrawDebugTriangle()
