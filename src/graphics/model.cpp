@@ -6,8 +6,8 @@
 #include "core/engine.h"
 
 Model::Model(const std::string& path, bool gamma_correction)
-	:meshes_{},
-	materials_{},
+	:textures_{},
+	mesh_sections_{},
 	directory_{},
 	gamma_correction_{ gamma_correction }
 {
@@ -19,11 +19,12 @@ Model::~Model()
 
 }
 
-void Model::Draw(const bgfx::ProgramHandle& program, uint8_t view_id) const
+void Model::Draw(uint8_t view_id) const
 {
-	for (const auto& mesh : meshes_)
+	for (const auto& mesh_section : mesh_sections_)
 	{
-		mesh->Draw(program, view_id);
+		mesh_section.material->Bind();
+		mesh_section.mesh->Draw(mesh_section.material->GetProgramHandle(), view_id);
 	}
 }
 
@@ -51,7 +52,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes_.push_back(ProcessMesh(mesh, scene));
+		ProcessMesh(mesh, scene);
 	}
 
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
@@ -61,7 +62,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 	// data to fill
 	std::vector<VertexData> vertices;
@@ -139,10 +140,16 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	// Create material
-	CreateMaterials(diffuseMaps, specularMaps, normalMaps, heightMaps);
+	auto mesh_material = CreateMaterials(diffuseMaps, specularMaps, normalMaps, heightMaps);
 
-	// return a mesh object created from the extracted mesh data
-	return std::make_shared<Mesh>(vertices, indices);
+	// Set shader to default basic
+	mesh_material->SetProgramHandle(Engine::GetBasicShaderProgramHandle());
+
+	// Create mesh
+	auto mesh_section = std::make_shared<Mesh>(vertices, indices);
+
+	// Bundle mesh and material
+	mesh_sections_.push_back({ mesh_section, mesh_material });
 }
 
 std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName)
@@ -176,7 +183,7 @@ std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* ma
 	return textures;
 }
 
-void Model::CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list)
+std::shared_ptr<Material> Model::CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list)
 {
 	// Create material and assign it to model
 	std::shared_ptr<Material> material_obj = std::make_shared<Material>();
@@ -198,5 +205,5 @@ void Model::CreateMaterials(const TextureList& diffuse_list, const TextureList& 
 		material_obj->SetHeightMap(height_list.at(0));
 	}
 
-	materials_.push_back(material_obj);
+	return material_obj;
 }

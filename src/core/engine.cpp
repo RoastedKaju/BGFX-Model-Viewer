@@ -11,11 +11,22 @@ void Engine::SetApplication(Application* application)
 
 ResourceManager& Engine::GetResourceManager()
 {
-	if(!app_instance_)
+	if (!app_instance_)
 	{
 		SDL_Log("Application context not set for engine.\n");
 		throw std::logic_error("Application context not set for engine.");
 	}
 
 	return app_instance_->resource_manager_;
+}
+
+bgfx::ProgramHandle Engine::GetBasicShaderProgramHandle()
+{
+	if (!app_instance_)
+	{
+		SDL_Log("Application context not set for engine.\n");
+		throw std::logic_error("Application context not set for engine.");
+	}
+
+	return app_instance_->resource_manager_.GetShaders().at("basic")->GetHandle();
 }

@@ -54,11 +54,6 @@ void ResourceManager::PrintLoadedShaders()
 	// Load and push back texture
 	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/metal_2k.jpg"));
 
-	// Make material and assign texture and shader
-	const Shader& shader = *shaders_map_.begin()->second;
-	materials_.push_back(std::make_shared<Material>(shader.GetHandle()));
-	materials_.begin()->get()->SetDiffuseMap(*textures_.begin());
-
 	// Import teapot model
 	models_.push_back(std::make_shared<Model>("../../../resources/models/teapot/scene.gltf"));
 
@@ -127,10 +122,10 @@ void ResourceManager::DrawDebugTriangle()
 
 	// Bind material
 	//materials_.begin()->get()->Bind();
-	models_.at(0)->GetMaterials().at(0)->SetProgramHandle(shader.GetHandle());
-	models_.at(0)->GetMaterials().at(0)->Bind();
+	//models_.at(0)->GetMaterials().at(0)->SetProgramHandle(shader.GetHandle());
+	//models_.at(0)->GetMaterials().at(0)->Bind();
 
 	// Draw mesh
 	//meshes_.begin()->get()->Draw(shader.GetHandle());
-	models_.at(0)->Draw(shader.GetHandle());
+	models_.at(0)->Draw();
 }

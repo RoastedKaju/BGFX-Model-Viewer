@@ -14,6 +14,12 @@
 #include "mesh.h"
 #include "material.h"
 
+struct MeshSection
+{
+	std::shared_ptr<Mesh> mesh;
+	std::shared_ptr<Material> material;
+};
+
 class Model
 {
 	using TextureList = std::vector<std::shared_ptr<Texture>>;
@@ -22,22 +28,20 @@ public:
 	Model(const std::string& path, bool gamma_correction = false);
 	~Model();
 
-	void Draw(const bgfx::ProgramHandle& program, uint8_t view_id = 0) const;
+	void Draw(uint8_t view_id = 0) const;
 
-	inline const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return meshes_; }
 	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
-	inline const std::vector<std::shared_ptr<Material>>& GetMaterials() const { return materials_; }
+	inline const std::vector<MeshSection>& GetMeshSections() const { return mesh_sections_; }
 
 private:
 	void LoadModel(const std::string& path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
-	std::shared_ptr<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	void ProcessMesh(aiMesh* mesh, const aiScene* scene);
 	TextureList LoadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& typeName);
-	void CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list);
+	std::shared_ptr<Material> CreateMaterials(const TextureList& diffuse_list, const TextureList& specular_list, const TextureList& normal_list, const TextureList& height_list);
 
-	std::vector<std::shared_ptr<Mesh>> meshes_;
 	std::vector<std::shared_ptr<Texture>> textures_;
-	std::vector<std::shared_ptr<Material>> materials_;
+	std::vector<MeshSection> mesh_sections_;
 	std::string directory_;
 	bool gamma_correction_;
 };
