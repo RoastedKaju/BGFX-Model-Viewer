@@ -1,4 +1,5 @@
 #include "application.h"
+#include "utils/renderable.h"
 
 Application::Application()
 {
@@ -61,7 +62,10 @@ bool Application::Create()
 	// Resouce manager
 	resource_manager_.LoadShaders();
 	resource_manager_.CreateFallbackTextures();
-	resource_manager_.PrintLoadedShaders();
+	resource_manager_.LoadMeshes();
+
+	// Demo scene for model viewer
+	CreateModelViewerScene();
 
 	return true;
 }
@@ -98,7 +102,9 @@ void Application::Run()
 		bgfx::dbgTextClear();
 		bgfx::dbgTextPrintf(1, 1, 0x0f, "BGFX");
 
-		resource_manager_.DrawDebugTriangle();
+		resource_manager_.UpdateCamera();
+
+		main_scene.Draw(0);
 
 		bgfx::frame();
 	}
@@ -136,4 +142,14 @@ void Application::ResetView(const SDL_WindowEvent& window_event)
 	const int new_height = window_event.data2;
 	bgfx::reset(new_width, new_height, BGFX_RESET_VSYNC);
 	bgfx::setViewRect(0, 0, 0, new_width, new_height);
+}
+
+void Application::CreateModelViewerScene()
+{
+	auto& model = resource_manager_.GetModels().back();
+	main_scene.AddRenderable(std::make_shared<Renderable>(model));
+
+	main_scene.GetRenderables().begin()->get()->GetTransform().SetPosition(0.0f, 0.0f, -90.0f);
+	//main_scene.GetRenderables().begin()->get()->GetTransform().SetScale(0.1f, 0.1f, 0.1f);
+	//main_scene.GetRenderables().begin()->get()->GetTransform().SetRotation(bx::toRad(0.0f), bx::toRad(0.0f), bx::toRad(10.0f));
 }

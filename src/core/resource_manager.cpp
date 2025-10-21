@@ -40,26 +40,6 @@ void ResourceManager::PrintLoadedShaders()
 	{
 		SDL_Log("%s\n", name.c_str());
 	}
-
-	std::vector<VertexData> vertices = {
-		{  0.0f,  0.5f, 0.0f, 0xffffffff, 0.5f, 0.0f }, // Top (center of texture top edge)
-		{ -0.5f, -0.5f, 0.0f, 0xffffffff, 0.0f, 1.0f }, // Bottom Left (bottom-left of texture)
-		{  0.5f, -0.5f, 0.0f, 0xffffffff, 1.0f, 1.0f }  // Bottom Right (bottom-right of texture)
-	};
-
-	std::vector<uint16_t> indices = { 0, 1, 2 };
-
-	meshes_.push_back(std::make_shared<Mesh>(vertices, indices));
-
-	// Load and push back texture
-	textures_.push_back(std::make_shared<Texture>("../../../resources/textures/metal_2k.jpg"));
-
-	// Import teapot model
-	models_.push_back(std::make_shared<Model>("../../../resources/models/teapot/scene.gltf"));
-
-	// Create camera
-	camera_ = std::make_shared<Camera>();
-
 }
 
 void ResourceManager::CreateFallbackTextures()
@@ -103,29 +83,16 @@ void ResourceManager::CreateFallbackTextures()
 	textures_.push_back(height);
 }
 
-void ResourceManager::DrawDebugTriangle()
+void ResourceManager::LoadMeshes()
 {
-	const Shader& shader = *shaders_map_.begin()->second;
+	// Create camera
+	camera_ = std::make_shared<Camera>();
 
-	// --- Camera setup ---
+	// Import teapot model
+	models_.push_back(std::make_shared<Model>("../../../resources/models/teapot/scene.gltf"));
+}
+
+void ResourceManager::UpdateCamera()
+{
 	bgfx::setViewTransform(0, camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
-
-	// --- Model transform ---
-	float modelMtx[16];
-	bx::mtxIdentity(modelMtx);
-
-	// Move teapot forward (camera looks along +Z)
-	bx::mtxTranslate(modelMtx, 0.0f, -1.0f, 8.0f);
-
-	// Set transform for bgfx
-	bgfx::setTransform(modelMtx);
-
-	// Bind material
-	//materials_.begin()->get()->Bind();
-	//models_.at(0)->GetMaterials().at(0)->SetProgramHandle(shader.GetHandle());
-	//models_.at(0)->GetMaterials().at(0)->Bind();
-
-	// Draw mesh
-	//meshes_.begin()->get()->Draw(shader.GetHandle());
-	models_.at(0)->Draw();
 }

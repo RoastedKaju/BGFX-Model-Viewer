@@ -1,5 +1,6 @@
 #include "model.h"
 
+#include <bgfx/bgfx.h>
 #include <bx/math.h>
 
 #include "utils/layout.h"
@@ -19,10 +20,12 @@ Model::~Model()
 
 }
 
-void Model::Draw(uint8_t view_id) const
+void Model::Draw(const Transform& transform, uint8_t view_id) const
 {
 	for (const auto& mesh_section : mesh_sections_)
 	{
+		bgfx::setTransform(transform.GetMatrix());
+
 		mesh_section.material->Bind();
 		mesh_section.mesh->Draw(mesh_section.material->GetProgramHandle(), view_id);
 	}

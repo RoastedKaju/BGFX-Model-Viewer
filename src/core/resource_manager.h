@@ -25,11 +25,12 @@ public:
 	const std::unordered_map<std::string, std::shared_ptr<Shader>>& GetShaders() const;
 	inline const std::vector<std::shared_ptr<Mesh>>& GetMeshes() const { return meshes_; }
 	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
+	inline const std::vector<std::shared_ptr<Model>>& GetModels() const { return models_; }
 
 	void PrintLoadedShaders();
 	void CreateFallbackTextures();
-
-	void DrawDebugTriangle();
+	void LoadMeshes();
+	void UpdateCamera();
 	
 private:
 	std::unordered_map<std::string, std::shared_ptr<Shader>> shaders_map_;

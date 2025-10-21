@@ -9,6 +9,7 @@
 #include <Windows.h>
 
 #include "resource_manager.h"
+#include "scene.h"
 
 class Engine;
 
@@ -25,6 +26,8 @@ private:
 	bool InitBGFX();
 	void ResetView(const SDL_WindowEvent& window_event);
 
+	void CreateModelViewerScene();
+
 	bool is_running_;
 
 	SDL_Window* window_;
@@ -33,6 +36,7 @@ private:
 	bgfx::PlatformData pd_;
 
 	ResourceManager resource_manager_;
+	Scene main_scene;
 
 	friend class Engine;
 };

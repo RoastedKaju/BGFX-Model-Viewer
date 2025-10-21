@@ -13,6 +13,7 @@
 
 #include "mesh.h"
 #include "material.h"
+#include "utils/transform.h"
 
 struct MeshSection
 {
@@ -28,7 +29,7 @@ public:
 	Model(const std::string& path, bool gamma_correction = false);
 	~Model();
 
-	void Draw(uint8_t view_id = 0) const;
+	void Draw(const Transform& transform, uint8_t view_id = 0) const;
 
 	inline const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures_; }
 	inline const std::vector<MeshSection>& GetMeshSections() const { return mesh_sections_; }
