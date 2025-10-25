@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "transform.h"
 
 Camera::Camera()
 	: position_(0.0f, 5.0f, 10.0f),
@@ -10,7 +11,7 @@ Camera::Camera()
 	bx::mtxIdentity(proj_);
 	projection_type_ = ProjectionType::Perspective;
 
-	SetPerspective(bx::toRad(90.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	SetPerspective(bx::toRad(90.0f), 800.0f / 600.0f, 0.1f, 500.0f);
 }
 
 void Camera::SetPerspective(float fov, float aspect, float near, float far)
