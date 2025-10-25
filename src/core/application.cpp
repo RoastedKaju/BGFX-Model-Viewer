@@ -149,7 +149,7 @@ void Application::CreateModelViewerScene()
 	auto& model = resource_manager_.GetModels().back();
 	main_scene.AddRenderable(std::make_shared<Renderable>(model));
 
-	main_scene.GetRenderables().begin()->get()->GetTransform().SetPosition(0.0f, 0.0f, -90.0f);
-	//main_scene.GetRenderables().begin()->get()->GetTransform().SetScale(0.1f, 0.1f, 0.1f);
-	//main_scene.GetRenderables().begin()->get()->GetTransform().SetRotation(bx::toRad(0.0f), bx::toRad(0.0f), bx::toRad(10.0f));
+	main_scene.GetRenderables().begin()->get()->GetTransform().SetPosition(bx::Vec3(0.0f, 3.0f, -120.0f));
+	main_scene.GetRenderables().begin()->get()->GetTransform().SetScale(bx::Vec3(0.5f, 0.5f, 0.5f));
+	main_scene.GetRenderables().begin()->get()->GetTransform().SetRotation(bx::Vec3(bx::toRad(0.0f), bx::toRad(50.0f), bx::toRad(0.0f)));
 }

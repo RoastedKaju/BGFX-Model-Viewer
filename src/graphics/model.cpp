@@ -24,7 +24,7 @@ void Model::Draw(const Transform& transform, uint8_t view_id) const
 {
 	for (const auto& mesh_section : mesh_sections_)
 	{
-		bgfx::setTransform(transform.GetMatrix());
+		bgfx::setTransform(transform.GetModelMatrix());
 
 		mesh_section.material->Bind();
 		mesh_section.mesh->Draw(mesh_section.material->GetProgramHandle(), view_id);
