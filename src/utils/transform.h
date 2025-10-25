@@ -8,22 +8,25 @@ class Transform
 public:
 	Transform();
 
-	void SetPosition(float x, float y, float z);
-	void SetRotation(float yaw, float pitch, float roll);
-	void SetScale(float x, float y, float z);
+	void SetPosition(const bx::Vec3& position);
+	void SetRotation(const bx::Vec3& rotation);
+	void SetScale(const bx::Vec3& scale);
 
-	inline const float* GetMatrix() const { return matrix_; }
-	inline bx::Vec3 GetPosition() const { return position_; }
-	inline bx::Vec3 GetRotation() const { return rotation_; }
-	inline bx::Vec3 GetScale() const { return scale_; }
+	inline const bx::Vec3& GetPosition() const { return position_; }
+	inline const bx::Vec3& GetRotation() const { return rotation_; }
+	inline const bx::Vec3& GetScale() const { return scale_; }
+
+	const float* GetModelMatrix() const;
 
 private:
-	void UpdateMatrix();
+	void UpdateModelMatrix();
 
 	bx::Vec3 position_;
 	bx::Vec3 rotation_;
 	bx::Vec3 scale_;
-	float matrix_[16];
+
+	float model_matrix_[16];
+	bool is_dirty_;
 };
 
 #endif // !TRANSFORM_H_
